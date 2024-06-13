@@ -13,7 +13,8 @@ interface SearchReducerProps {
     booksLoading: boolean;
     readingList: IBook[];
     filteredBooks: IBook[];
-    openReadingList: boolean
+    openReadingList: boolean;
+    fetchingBooksError: boolean;
 }
 
 const initialState: SearchReducerProps = {
@@ -21,7 +22,8 @@ const initialState: SearchReducerProps = {
     booksLoading: false,
     readingList: [],
     filteredBooks: [],
-    openReadingList: false
+    openReadingList: false,
+    fetchingBooksError: false,
 };
 
 const searchSlice = createSlice({
@@ -40,7 +42,7 @@ const searchSlice = createSlice({
                 if (!state.readingList.some(book => book.title === newBook.title)) {
                     state.readingList.push(newBook);
                     window.alert("Book added to reading list!")
-                }else{
+                } else {
                     window.alert("Book already in reading list!")
                 }
             });
@@ -56,9 +58,12 @@ const searchSlice = createSlice({
         },
         removeBookByTitle: (state, action) => {
             state.readingList = state.readingList.filter(book => book.title !== action.payload);
-            if(state.readingList.length === 0){
+            if (state.readingList.length === 0) {
                 setOpenReadingList(false)
             }
+        },
+        setFetchingBooksError: (state, action) => {
+            state.fetchingBooksError = action.payload;
         }
     },
 });
@@ -69,6 +74,8 @@ export const {
     filterBooks,
     setOpenReadingList,
     removeBookByTitle,
-    setReadingList} = searchSlice.actions;
+    setFetchingBooksError,
+    setReadingList
+} = searchSlice.actions;
 
 export default searchSlice.reducer;

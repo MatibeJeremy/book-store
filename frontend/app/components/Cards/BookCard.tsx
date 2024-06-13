@@ -15,7 +15,8 @@ import {useAppDispatch, useAppSelector} from "@/app/store";
 import BookCardSkeleton from "@/app/components/Cards/BookCardSkeleton";
 import {Button} from "@mui/material";
 import {Add} from "@mui/icons-material";
-import {IBook, setReadingList} from "@/app/store/reducers/search";
+import {IBook, setFetchingBooksError, setReadingList} from "@/app/store/reducers/search";
+import {useEffect} from "react";
 
 interface BookCardProps {
     author: string;
@@ -27,6 +28,10 @@ export default function BookCard({author, coverPhotoURL, readingLevel, title}: B
     const loading = useAppSelector(
         (state) => state.search.booksLoading
     );
+    const error = useAppSelector(
+        (state) => state.search.books.fetchingBooksError
+    );
+
     const dispatch = useAppDispatch()
 
     const bookPayload: IBook = {
@@ -40,8 +45,12 @@ export default function BookCard({author, coverPhotoURL, readingLevel, title}: B
         dispatch(setReadingList(bookPayload))
     }
 
+    useEffect(() => {
+        dispatch(setFetchingBooksError(false))
+    }, []);
+
     return (
-        loading ? <BookCardSkeleton /> :
+        loading || error ? <BookCardSkeleton /> :
         <Grid sx={{
             marginTop: "5%"
         }}>

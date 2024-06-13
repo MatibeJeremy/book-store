@@ -1,4 +1,4 @@
-import {setBooks, setBooksLoading} from "@/app/store/reducers/search";
+import {setBooks, setBooksLoading, setFetchingBooksError} from "@/app/store/reducers/search";
 import axios from "axios";
 import {Dispatch} from "redux";
 
@@ -27,6 +27,7 @@ export const fetchBooks = async (
             dispatch(setBooksLoading(false))
         } catch (error) {
             dispatch(setBooksLoading(true))
+            dispatch(setFetchingBooksError(true))
             console.log(error);
         }
     }
