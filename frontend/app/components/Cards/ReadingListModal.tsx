@@ -34,6 +34,14 @@ function SimpleDialog(props: SimpleDialogProps) {
     return (
         <Dialog onClose={onClose}  open={open}>
             <DialogContent>
+                <DialogTitle>
+                    <Typography sx={{
+                        display:"flex",
+                        justifyContent:"center"
+                    }}>
+                        Reading List
+                    </Typography>
+                </DialogTitle>
                 {readingList.length > 0 ?
                     <List dense sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
                         {readingList.map((book, index) => {
