@@ -58,7 +58,6 @@ const searchSlice = createSlice({
             state.readingList = state.readingList.filter(book => book.title !== action.payload);
             if(state.readingList.length === 0){
                 setOpenReadingList(false)
-                window.location.reload()
             }
         }
     },

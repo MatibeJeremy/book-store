@@ -9,7 +9,7 @@ interface BookSearchProps {
 }
 const BookListPopper = ({ books, searchText, anchorEl }: BookSearchProps) => (
     <Grid sx={{ height: "200px", overflow: "auto" }}>
-        <Popper open={Boolean(searchText)} anchorEl={anchorEl} sx={{ width: '50%' }}>
+        <Popper open={Boolean(searchText)} anchorEl={anchorEl} sx={{ width: '50%', border: "1px solid #335C6E" }}>
             <Grid sx={{ height: "200px", overflowY: "auto" }}>
                 {books.map((book, index) => (
                     <Paper

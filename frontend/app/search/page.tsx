@@ -17,6 +17,7 @@ export default function SearchPage() {
     const [searchText, setSearchText] = useState("");
     const dispatch = useAppDispatch()
     const readingList = useAppSelector((state) => state.search.readingList)
+    const [count,setCount] = useState(0)
 
     const books = useAppSelector((state) => {
         return state.search.filteredBooks.length > 0 ? state.search.filteredBooks : state.search.books
@@ -37,6 +38,15 @@ export default function SearchPage() {
     useEffect(() => {
         fetchBooks(dispatch)
     }, []);
+
+    useEffect(() => {
+        if(readingList.length === 0){
+            dispatch(setOpenReadingList(false))
+            setCount(readingList.length)
+        }
+        setCount(readingList.length)
+    }, [readingList]);
+
     return (
         <Grid container lg={10} sx={{
             margin: "auto",
@@ -47,7 +57,7 @@ export default function SearchPage() {
             <Grid
                 sx={{
                     margin: "auto",
-                    display: "flex"
+                    display: "flex",
                 }}
                 item>
                 <TextField
