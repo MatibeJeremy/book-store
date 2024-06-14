@@ -1,6 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
 
-
 export interface IBook {
     title: string;
     author: string;
@@ -15,6 +14,8 @@ interface SearchReducerProps {
     filteredBooks: IBook[];
     openReadingList: boolean;
     fetchingBooksError: boolean;
+    toastNotification: boolean;
+    toastNotificationText: string;
 }
 
 const initialState: SearchReducerProps = {
@@ -24,6 +25,8 @@ const initialState: SearchReducerProps = {
     filteredBooks: [],
     openReadingList: false,
     fetchingBooksError: false,
+    toastNotification: false,
+    toastNotificationText: "",
 };
 
 const searchSlice = createSlice({
@@ -41,9 +44,11 @@ const searchSlice = createSlice({
             newBooks.forEach(newBook => {
                 if (!state.readingList.some(book => book.title === newBook.title)) {
                     state.readingList.push(newBook);
-                    window.alert("Book added to reading list!")
+                    state.toastNotification = true;
+                    state.toastNotificationText = "Book added to reading list!";
                 } else {
-                    window.alert("Book already in reading list!")
+                    state.toastNotification = true;
+                    state.toastNotificationText = "Book already in reading list!"
                 }
             });
         },
@@ -57,6 +62,8 @@ const searchSlice = createSlice({
             state.openReadingList = action.payload;
         },
         removeBookByTitle: (state, action) => {
+            state.toastNotification = true;
+            state.toastNotificationText = "Book removed from reading list!"
             state.readingList = state.readingList.filter(book => book.title !== action.payload);
             if (state.readingList.length === 0) {
                 setOpenReadingList(false)
@@ -64,6 +71,12 @@ const searchSlice = createSlice({
         },
         setFetchingBooksError: (state, action) => {
             state.fetchingBooksError = action.payload;
+        },
+        setToastNotification: (state, action) => {
+            state.toastNotification = action.payload;
+        },
+        setToastNotificationText: (state, action) => {
+            state.toastNotificationText = action.payload;
         }
     },
 });
@@ -75,6 +88,8 @@ export const {
     setOpenReadingList,
     removeBookByTitle,
     setFetchingBooksError,
+    setToastNotification,
+    setToastNotificationText,
     setReadingList
 } = searchSlice.actions;
 

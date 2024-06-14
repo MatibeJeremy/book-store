@@ -1,12 +1,12 @@
 "use client"
 
-import { Grid, TextField} from "@mui/material";
+import {Grid, Snackbar, TextField} from "@mui/material";
 import {useEffect, useState} from "react";
 import {Badge} from "@mui/base";
 import BookCard from "@/app/components/Cards/BookCard";
 import {fetchBooks} from "@/app/store/actions/search";
 import {useAppDispatch, useAppSelector} from "@/app/store";
-import {filterBooks, setOpenReadingList} from "@/app/store/reducers/search";
+import {filterBooks, setOpenReadingList, setToastNotification} from "@/app/store/reducers/search";
 import * as React from "react";
 import BookListPopper from "@/app/components/Cards/BookListPopper";
 import {Book} from "@mui/icons-material";
@@ -17,7 +17,6 @@ export default function SearchPage() {
     const [searchText, setSearchText] = useState("");
     const dispatch = useAppDispatch()
     const readingList = useAppSelector((state) => state.search.readingList)
-    const [count,setCount] = useState(0)
 
     const books = useAppSelector((state) => {
         return state.search.filteredBooks.length > 0 ? state.search.filteredBooks : state.search.books
@@ -42,9 +41,7 @@ export default function SearchPage() {
     useEffect(() => {
         if(readingList.length === 0){
             dispatch(setOpenReadingList(false))
-            setCount(readingList.length)
         }
-        setCount(readingList.length)
     }, [readingList]);
 
     return (
