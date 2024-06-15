@@ -5,7 +5,10 @@ import { Snackbar } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@/app/store';
 import { setToastNotification } from '@/app/store/reducers/search';
 
-const SnackbarWrapper: React.FC = ({ children }) => {
+interface SnackbarWrapperProps {
+    children: React.ReactNode;
+}
+const SnackbarWrapper: React.FC<SnackbarWrapperProps> = ({ children }) => {
     const dispatch = useAppDispatch();
     const open = useAppSelector(state => state.search.toastNotification);
     const toastText = useAppSelector(state => state.search.toastNotificationText);
@@ -19,7 +22,7 @@ const SnackbarWrapper: React.FC = ({ children }) => {
             {children}
             <Snackbar
                 open={open}
-                autoHideDuration={3000}
+                autoHideDuration={1000}
                 onClose={handleClose}
                 message={toastText}
             />

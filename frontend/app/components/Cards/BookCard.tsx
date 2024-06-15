@@ -29,7 +29,7 @@ export default function BookCard({author, coverPhotoURL, readingLevel, title}: B
         (state) => state.search.booksLoading
     );
     const error = useAppSelector(
-        (state) => state.search.books.fetchingBooksError
+        (state) => state.search.fetchingBooksError
     );
 
     const dispatch = useAppDispatch()

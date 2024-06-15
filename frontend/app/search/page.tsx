@@ -6,7 +6,12 @@ import {Badge} from "@mui/base";
 import BookCard from "@/app/components/Cards/BookCard";
 import {fetchBooks} from "@/app/store/actions/search";
 import {useAppDispatch, useAppSelector} from "@/app/store";
-import {filterBooks, setOpenReadingList, setToastNotification} from "@/app/store/reducers/search";
+import {
+    filterBooks,
+    setOpenReadingList,
+    setToastNotification,
+    setToastNotificationText
+} from "@/app/store/reducers/search";
 import * as React from "react";
 import BookListPopper from "@/app/components/Cards/BookListPopper";
 import {Book} from "@mui/icons-material";
@@ -14,9 +19,10 @@ import ReadingList from "@/app/components/Cards/ReadingListModal";
 
 export default function SearchPage() {
     const [anchorEl, setAnchorEl] = useState(null);
+    const [readingListCount, setReadingListCount] = useState(0);
     const [searchText, setSearchText] = useState("");
-    const dispatch = useAppDispatch()
-    const readingList = useAppSelector((state) => state.search.readingList)
+    const dispatch = useAppDispatch();
+    const readingList = useAppSelector((state) => state.search.readingList);
 
     const books = useAppSelector((state) => {
         return state.search.filteredBooks.length > 0 ? state.search.filteredBooks : state.search.books
@@ -32,6 +38,11 @@ export default function SearchPage() {
         if(readingList.length !== 0){
             dispatch(setOpenReadingList(true))
         }
+        else{
+            setReadingListCount(0)
+            dispatch(setToastNotification(true))
+            dispatch(setToastNotificationText("Reading list is empty!"))
+        }
     }
 
     useEffect(() => {
@@ -39,8 +50,10 @@ export default function SearchPage() {
     }, []);
 
     useEffect(() => {
+        setReadingListCount(readingList.length)
         if(readingList.length === 0){
             dispatch(setOpenReadingList(false))
+            setReadingListCount(0)
         }
     }, [readingList]);
 
@@ -81,7 +94,7 @@ export default function SearchPage() {
                 margin: "auto",
                 cursor: "pointer"
             }}>
-                <Badge onClick={openCart} badgeContent={readingList.length} color="error">
+                <Badge onClick={openCart} badgeContent={readingListCount} color="error">
                     <Book sx={{
                         color: "#335C6E",
                     }}/>
