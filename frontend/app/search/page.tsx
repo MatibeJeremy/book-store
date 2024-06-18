@@ -50,7 +50,7 @@ export default function SearchPage() {
         if(readingList.length === 0){
             dispatch(setOpenReadingList(false))
         }
-    }, [readingList]);
+    }, [readingList.length]);
 
     return (
         <Grid container lg={10} sx={{
@@ -89,9 +89,10 @@ export default function SearchPage() {
                 margin: "auto",
                 cursor: "pointer"
             }}>
-                <Badge onClick={openCart} badgeContent={readingList.length} color="error">
+                <Badge onClick={openCart} badgeContent={readingList.length === 1 ? null : readingList.length} color="error">
                     <Book sx={{
                         color: "#335C6E",
+                        display: readingList.length >= 1 ? "" :"none"
                     }}/>
                 </Badge>
             </Grid>
