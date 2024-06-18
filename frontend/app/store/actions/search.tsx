@@ -1,4 +1,10 @@
-import {setBooks, setBooksLoading, setFetchingBooksError} from "@/app/store/reducers/search";
+import {
+    setBooks,
+    setBooksLoading,
+    setFetchingBooksError,
+    setToastNotification,
+    setToastNotificationText
+} from "@/app/store/reducers/search";
 import axios from "axios";
 import {Dispatch} from "redux";
 
@@ -28,6 +34,9 @@ export const fetchBooks = async (
         } catch (error) {
             dispatch(setBooksLoading(true))
             dispatch(setFetchingBooksError(true))
-            console.log(error);
+            if (error.message == "Network Error") {
+                dispatch(setToastNotification(true))
+                dispatch(setToastNotificationText("Kindly launch the backend server and try again!"))
+            }
         }
     }
