@@ -14,7 +14,7 @@ import {Grid} from "@mui/material";
 import {useAppDispatch, useAppSelector} from "@/app/store";
 import BookCardSkeleton from "@/app/components/Cards/BookCardSkeleton";
 import {Button} from "@mui/material";
-import {Add} from "@mui/icons-material";
+import {Add, Check} from "@mui/icons-material";
 import {IBook, setFetchingBooksError, setReadingList} from "@/app/store/reducers/search";
 import {useEffect} from "react";
 
@@ -25,15 +25,16 @@ interface BookCardProps {
     title: string;
 }
 export default function BookCard({author, coverPhotoURL, readingLevel, title}: BookCardProps) {
+    const dispatch = useAppDispatch()
     const loading = useAppSelector(
         (state) => state.search.booksLoading
     );
-    const error = useAppSelector(
-        (state) => state.search.fetchingBooksError
+    const books = useAppSelector(
+        (state) => state.search.books
     );
-
-    const dispatch = useAppDispatch()
-
+    const isBookInReadingList = useAppSelector(
+        (state) => state.search.readingList.some(book => book.title === title)
+    );
     const bookPayload: IBook = {
         "author": author,
         "coverPhotoURL": coverPhotoURL,
@@ -50,7 +51,7 @@ export default function BookCard({author, coverPhotoURL, readingLevel, title}: B
     }, []);
 
     return (
-        loading || error ? <BookCardSkeleton /> :
+        loading || books.length === 0 ? <BookCardSkeleton /> :
         <Grid sx={{
             marginTop: "5%"
         }}>
@@ -83,19 +84,19 @@ export default function BookCard({author, coverPhotoURL, readingLevel, title}: B
                 <CardActions disableSpacing>
                     <Button
                         sx={{
-                            backgroundColor: '#5ACCCC',
+                            backgroundColor: isBookInReadingList ? '#335C6E' : '#5ACCCC',
                             textTransform: "none",
                             color: 'white',
                             '&:hover': {
-                                backgroundColor: "#335C6E",
+                                backgroundColor: isBookInReadingList ? '#5ACCCC' : "#335C6E",
                                 color: 'white'
                             }
                         }}
                         endIcon={
-                            <Add/>
+                            isBookInReadingList ? <Check /> : <Add/>
                         }
                         onClick={addToReadingList}
-                    >Add to List</Button>
+                    >{isBookInReadingList ? 'Added' : 'Add to List'}</Button>
                 </CardActions>
             </Card>
         </Grid>

@@ -32,7 +32,7 @@ export const fetchBooks = async (
             dispatch(setBooks(response.data.data.books));
             dispatch(setBooksLoading(false))
         } catch (error: any) {
-            dispatch(setBooksLoading(true))
+            dispatch(setBooksLoading(false))
             dispatch(setFetchingBooksError(true))
             if (error.message == "Network Error") {
                 dispatch(setToastNotification(true))
