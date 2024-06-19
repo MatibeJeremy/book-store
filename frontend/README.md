@@ -49,5 +49,6 @@ yarn cypress run
 ```
 
 ```
+Run application
 yarn dev
 ```
