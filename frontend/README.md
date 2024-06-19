@@ -38,6 +38,7 @@ npm start
 Run tests with UI:
 
 ```
+cd ../frontend
 yarn cypress open
 ```
 
@@ -48,6 +49,5 @@ yarn cypress run
 ```
 
 ```
-cd ../frontend
 yarn dev
 ```
