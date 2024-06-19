@@ -48,7 +48,7 @@ Run test without UI:
 yarn cypress run
 ```
 
-```
 Run application
+```
 yarn dev
 ```
