@@ -4,4 +4,9 @@ describe("Landing Page", () => {
         cy.visit("/");
         cy.get("main").should("exist");
     });
+
+    it('should display search input', () => {
+        cy.visit("/");
+        cy.get('#searchInput').should('be.visible');
+    });
 });

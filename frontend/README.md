@@ -35,6 +35,18 @@ npm start
 
 3. Run the frontend application and test
 
+Run tests with UI:
+
+```
+yarn cypress open
+```
+
+Run test without UI:
+
+```
+yarn cypress run
+```
+
 ```
 cd ../frontend
 yarn dev

@@ -66,6 +66,7 @@ export default function SearchPage() {
                 }}
                 item>
                 <TextField
+                    id="searchInput"
                     fullWidth
                     label="Search"
                     variant="outlined"
