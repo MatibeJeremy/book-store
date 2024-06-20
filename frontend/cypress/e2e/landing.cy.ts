@@ -9,4 +9,9 @@ describe("Landing Page", () => {
         cy.visit("/");
         cy.get('#searchInput').should('be.visible');
     });
+
+    it('renders the books container', () =>{
+        cy.visit("/");
+        cy.get('#booksContainer').should('exist');
+    })
 });

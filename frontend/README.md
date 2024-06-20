@@ -23,7 +23,7 @@ To install the project, follow these steps:
 yarn install
 ```
 
-2. Run the the backend application
+2.  Run the the backend application
 
 ```
 cd ../backend
@@ -33,7 +33,7 @@ npm install
 npm start
 ```
 
-3. Run the frontend application and test
+3.  Run the frontend application and test
 
 Run tests with UI:
 

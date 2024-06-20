@@ -85,7 +85,9 @@ export default function SearchPage() {
                     anchorEl={anchorEl}
                 />
             </Grid>
-            <Grid sx={{
+            <Grid
+                id="booksContainer"
+                sx={{
                 display: "flex",
                 margin: "auto",
                 cursor: "pointer"
